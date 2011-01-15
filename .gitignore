@@ -1,0 +1,34 @@
+# Bundler
+.bundle
+
+# SQLite databases
+db/*.sqlite3
+
+# Logs
+log/*.log
+log/*.pid
+
+# Temp folder
+tmp/**/*
+
+# Aptana
+.project
+
+# cucumber
+rerun.txt
+
+# Net Beans
+nbproject
+
+# ??
+.idea/
+
+# OS X stuff
+.DS_Store
+*~
+
+# vi
+*.swp
+
+# RCov?
+coverage/*
