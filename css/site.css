@@ -1,0 +1,14 @@
+@import url("/css/clear.css");
+
+.secret_quote {
+  cursor: help;
+}
+
+#logo #h2.tagline {
+  padding: 8px 0px 3px 20px;
+}
+
+.wordcount {
+  float: right;
+  color: #DDD;
+}

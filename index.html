@@ -1,1 +1,26 @@
-<p>This is where my homepage will go</p>
+---
+layout: static
+title: home
+---
+{% for post in site.posts %}
+    <div class="post" id="post-{{ post.id }}">
+      <h2 class="title">
+        <a href="{{ post.url }}" rel="bookmark">{{ post.title }}</a>
+      </h2>
+      <div class="meta">
+        <p class="wordcount">{{ post.content | number_of_words }} words</p>
+        <p>{{ post.date | date: "%A, %B %d %Y" }}</p>
+      </div>
+      <div class="entry">
+        {{ post.content | truncatewords: 110 }}
+        &raquo; <a href="{{ post.url }}" rel="bookmark">continue</a>
+      </div>
+      
+      <p class="comments">
+        <!-- <?php comments_popup_link(__('No responses yet'), __('One response so far'), __('% responses so far')); ?>  -->
+      </p>          
+    </div>
+{% endfor %}
+<p align="center">
+  <!-- <?php posts_nav_link(' - ','&#171; Newer','Older &#187;') ?> -->
+</p>
