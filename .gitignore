@@ -32,3 +32,6 @@ nbproject
 
 # RCov?
 coverage/*
+
+# Jekyll
+_site/
