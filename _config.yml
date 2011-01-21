@@ -1,0 +1,22 @@
+auto:                 true
+server:               true
+server_port:          4000
+                      
+safe:                 true
+lsi:                  false
+                      
+markdown:             maruku
+pygments:             true
+                      
+source:               .
+destination:          ./_site
+exclude:              CNAME, Gemfile, Gemfile.lock, generate.rb, README, template.markdown
+permalink:            /:categories/:title
+                      
+url:                  http://j-ferguson.com/
+name:                 simply coding
+tagline:              Seek simplicity and distrust it.
+tagline_attribution:  Alfred North Whitehead
+jekyll_version:       0.10.0
+stylesheet_url:       /css/site.css
+atom_url:             /atom.xml
