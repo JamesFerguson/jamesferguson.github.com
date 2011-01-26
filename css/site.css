@@ -1,4 +1,5 @@
 @import url("/css/clear.css");
+@import url("/css/highlighting.css");
 
 .secret_quote {
   cursor: help;
