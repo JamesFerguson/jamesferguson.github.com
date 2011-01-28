@@ -1,13 +1,16 @@
 GEM
   remote: http://rubygems.org/
+  remote: http://gems.rubyforge.org/
   specs:
     archive-tar-minitar (0.5.2)
+    awesome_print (0.3.1)
     classifier (1.3.3)
       fast-stemmer (>= 1.0.0)
     columnize (0.3.2)
     diff-lcs (1.1.2)
     directory_watcher (1.3.2)
     fast-stemmer (1.0.0)
+    irb_hacks (0.2.0)
     jekyll (0.10.0)
       classifier (>= 1.3.1)
       directory_watcher (>= 1.1.1)
@@ -18,7 +21,7 @@ GEM
     liquid (2.2.2)
     maruku (0.6.0)
       syntax (>= 1.0.0)
-    open4 (1.0.1)
+    ori (0.1.0)
     rspec (2.4.0)
       rspec-core (~> 2.4.0)
       rspec-expectations (~> 2.4.0)
@@ -38,12 +41,16 @@ GEM
     ruby_core_source (0.1.4)
       archive-tar-minitar (>= 0.5.2)
     syntax (1.0.0)
+    wirble (0.1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
+  irb_hacks
   jekyll
-  open4
+  ori
   rspec
   ruby-debug19
+  wirble

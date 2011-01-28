@@ -1,8 +1,15 @@
-source 'http://rubygems.org'
+source :rubygems
 
 gem 'jekyll'
 
-gem 'rspec'
-gem 'ruby-debug19'
+# Fast LSI gen
+# gem 'rb-gsl'
 
-gem 'open4'
+gem 'rspec'
+
+gem 'ruby-debug19'
+gem 'awesome_print'
+gem 'wirble'
+gem 'irb_hacks'
+gem 'ori'
+

@@ -10,7 +10,7 @@ pygments:             true
                       
 source:               .
 destination:          ./_site
-exclude:              CNAME, Gemfile, Gemfile.lock, README, script, spec
+exclude:              CNAME, Gemfile, Gemfile.lock, README, script, spec, tmp
 permalink:            /:categories/:title
                       
 url:                  http://j-ferguson.com/
