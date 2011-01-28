@@ -5,7 +5,7 @@ title: home
 {% for post in site.posts %}
     <div class="post" id="post-{{ post.id }}">
       <h2 class="title">
-        <a href="{{ post.url }}" rel="bookmark">{{ post.title }}</a>
+        <a href="{{ post.url }}/" rel="bookmark">{{ post.title }}</a>
       </h2>
       <div class="meta">
         <p class="wordcount">{{ post.content | number_of_words }} words</p>
@@ -13,7 +13,7 @@ title: home
       </div>
       <div class="entry">
         {{ post.content | truncatewords: 110 }}
-        &raquo; <a href="{{ post.url }}" rel="bookmark">continue</a>
+        &raquo; <a href="{{ post.url }}/" rel="bookmark">continue</a>
       </div>
       
       <p class="comments">
