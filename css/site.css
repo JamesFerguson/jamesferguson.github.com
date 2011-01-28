@@ -13,3 +13,7 @@
   float: right;
   color: #DDD;
 }
+
+a.thickbox img {
+  vertical-align: bottom;
+}
