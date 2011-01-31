@@ -3,7 +3,7 @@ layout: static
 title: home
 ---
 {% for post in site.posts %}
-    <div class="post" id="post-{{ post.id }}">
+    <div class="post" id="post{{ post.id | replace: '/', '_' }}">
       <h2 class="title">
         <a href="{{ post.url }}/" rel="bookmark">{{ post.title }}</a>
       </h2>
@@ -17,7 +17,6 @@ title: home
       </div>
       
       <p class="comments">
-        <!-- <?php comments_popup_link(__('No responses yet'), __('One response so far'), __('% responses so far')); ?>  -->
       </p>          
     </div>
 {% endfor %}
