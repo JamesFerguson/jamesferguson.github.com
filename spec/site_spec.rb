@@ -1,3 +1,4 @@
+require 'tidy_ffi'
 
 APP_ROOT = File.realpath('..', File.dirname(__FILE__)) # /Users/jim/Coding/jamesferguson.github.com
 
@@ -105,6 +106,29 @@ describe "a generic static site" do
     
     errors.should == []
     status.should == 0
+  end
+  
+  it "contains valid html" do
+    html_errors = Dir["#{APP_ROOT}/_site/**/*.html"].inject([]) do |errors, filename|
+      content = File.foreach(filename).reduce(:+)
+      tidier = TidyFFI::Tidy.new(content)
+      
+      errors << filename + ":\n" + tidier.errors if tidier.errors
+      
+      errors
+    end
+    
+    html_errors.should == []
+  end
+  
+  it "offers a valid rss feed" do
+    # http://feedvalidator.org/check.cgi?url=http://j-ferguson/rss/atom.xml
+    pending
+  end
+  
+  it "uses valid js" do
+    # https://github.com/psionides/jslint_on_rails
+    pending
   end
   
 end
