@@ -33,7 +33,7 @@ describe "a generic static site" do
     \\K                       # don't include the above in the match; makes the above a lookbehind, but more efficient
     \\w+://                   # match all chars of protocol, :// is how we know we have a link
     (?\\x21www.w3.org/)       # negative lookahead to exclude irrelevant and slow w3 urls; x21 is chr code for bang
-    [^\"\\'\\ />]*            # keep matching until dquo, squo, space, slash or close tag
+    [^\"\\'\\ >]*            # keep matching until dquo, squo, space or close tag
     RGX
     ext_link_pattern.gsub!(/^\s*|\s*#.*\n/, '') # (?x) must be at index 0
     
@@ -52,15 +52,17 @@ describe "a generic static site" do
     ext_spider_res.gsub!(/(?x)
       Spider\ mode\ enabled\.\ Check\ if\ remote\ file\ exists.\n
       | --\d{4,4}-\d\d-\d\d\ \d\d:\d\d:\d\d--\ \ 
+      | ^Reusing\ existing\ connection\ to\ .*\.\n
       | ^Resolving.*([12]?\d?\d\.){3,3}[12]?\d?\d\n
-      | ^Connecting.*\.\.\.\ connected\.\n|HTTP\ request\ sent,\ awaiting\ response\.\.\.\ 200\ OK\n
-      | ^Length:.*\nRemote\ file\ exists\ and\ could\ contain\ further\ links\,\nbut\ recursion\ is\ disabled\ --\ not\ retrieving\.\n
+      | ^Connecting.*\.\.\.\ connected\.\n
+      | HTTP\ request\ sent,\ awaiting\ response\.\.\.\ 200\ OK\n
+      | ^Length:.*\nRemote\ file\ exists(?:\ and\ could\ contain\ further\ links\,\nbut\ recursion\ is\ disabled\ --\ not\ retrieving)?\.\n
       | ^WARNING:.*\n
       | \s*Self-signed\ certificate.*\n
       | ^\n    
     /, '')
     # sub out urls not followed by unexpected output
-    ext_spider_res = ext_spider_res.gsub!(/\w+:\/\/.*\n(?=\w+:\/\/|$)/, '').split(/\n/)
+    ext_spider_res = ext_spider_res.gsub!(/\w+:\/\/[^\s]*\n(?=\w+:\/\/|$)/, '').split(/\n/)
     
     ext_spider_res.should == []
     status.should == 0
