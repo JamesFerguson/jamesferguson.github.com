@@ -42,15 +42,16 @@ I put these changes in a pull-request and sent it along to the Devise guys and J
 
 ### HttpOnly
 
-Modern browsers support an `HttpOnly` flag for cookies that tells the browser to lock the cookie against access from Javascript. If Javascript can't access your cookie, then attackers can't exploit XSS vulnerabilities to harvest your session cookie and impersonate you to the site. 
+Modern browsers support an `HttpOnly` flag for cookies that tells the browser to lock the cookie against access from Javascript. If Javascript can't access your cookie, then attackers can't exploit [XSS vulnerabilities][xss] to harvest your session cookie and impersonate you to the site. 
 
 Such session harvesting is the most flexible way to use an XSS vulnerability[^xss] to escalate privileges. But even with an `HttpOnly` session cookie a site with an XSS flaw would still be vulnerable to a '[just do it][]' attack. That is, rather than embedding a script to harvest the user's session and then doing something dastardly on his own machine, the attacker could simply embed a different script that directly does something dastardly and have it run on the user's own machine.
 
-However a 'just do it' attack is probably a little more constrained because the malicious script has to get by both the site's (admittedly already at least partially faulty) input filtering as well as any browser limitations on Javascript.
+However a 'just do it' attack is probably a little more constrained because the malicious script has to get by both the site's (admittedly already at least partially faulty) input filtering as well as any browser limitations on Javascript. It's also a more complex script than session harvesting and has to be run blind.
 
 [HttpOnly]: http://en.wikipedia.org/wiki/HttpOnly#Cross-site_scripting_.E2.80.93_cookie_theft
 [just do it]: http://en.wikipedia.org/wiki/HttpOnly#Cross-site_scripting_.E2.80.93_just_do_it
 [test]: https://github.com/JamesFerguson/devise/blob/56e55726c8cdc920f48c97187c7fe8b9d2baddc6/test/integration/rememberable_test.rb "See the whole file"
 [change]: https://github.com/JamesFerguson/devise/blob/5f98caca1b192c30f1f3774a365a66f786958cae/lib/devise/hooks/rememberable.rb "See the whole file"
+[xss]: http://en.wikipedia.org/wiki/Cross-site_scripting
 
-[^xss]: XSS vulnerability: typically arise when a site fails to strip HTML properly from user input before redisplaying it. That allows a user to pass in Javascript and have it run in other users' browsers as though it was part of the site.
+*[XSS]: Cross-site scripting
