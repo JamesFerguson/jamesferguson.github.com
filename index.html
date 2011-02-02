@@ -5,7 +5,7 @@ title: home
 {% for post in site.posts %}
     <div class="post" id="post{{ post.id | replace: '/', '_' }}">
       <h2 class="title">
-        <a href="{{ post.url }}/" rel="bookmark">{{ post.title }}</a>
+        <a href="{{ post.url }}/" rel="bookmark">{{ post.title | downcase }}</a>
       </h2>
       <div class="meta">
         <p class="wordcount">{{ post.content | number_of_words }} words</p>
