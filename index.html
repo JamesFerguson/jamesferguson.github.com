@@ -12,7 +12,12 @@ title: home
         <p>{{ post.date | date: "%A, %B %d %Y" }}</p>
       </div>
       <div class="entry">
-        {{ post.content | truncatewords: 110 }}
+        {% capture post_content %}{{ post.content | truncatewords: 110 | replace: "<div class='sidenote'", "<!-- <div class='sidenote'" }}{% endcapture %}
+        {% if post_content contains "</div>" %}
+        {{ post_content | replace: "</div>", "</div> -->" }}
+        {% else %}
+        {{ post_content | replace: "...", "-->..." }}
+        {% endif %}
         &raquo; <a href="{{ post.url }}/" rel="bookmark">continue</a>
       </div>
       
