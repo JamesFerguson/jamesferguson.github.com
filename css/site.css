@@ -65,6 +65,18 @@ p {
   font-size: 130%;
 }
 
+/* Highlights */
+.highlight {
+  font-size: 8px;
+}
+
+.highlight pre {
+  overflow: auto;
+  margin-bottom: 1em;
+/*  word-wrap: break-word;*/
+/*  width: 60;*/
+}
+
 /* Gists */
 .gist {
   clear: both;
