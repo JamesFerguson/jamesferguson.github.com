@@ -7,6 +7,7 @@ tags:
 - cucumber
 - the\_checklist\_manifesto
 - best_practices
+truncate_at: 106
 ---
 Since getting into BDD and Cucumber I've been getting mixed messages about what should be covered by features and what shouldn't. 
 

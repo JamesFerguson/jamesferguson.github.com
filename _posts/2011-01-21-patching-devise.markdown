@@ -7,6 +7,7 @@ tags:
 - security
 - devise
 - cookie
+truncate_at: 67
 ---
 
 I submitted my first patch to an open source Ruby project the other day. 

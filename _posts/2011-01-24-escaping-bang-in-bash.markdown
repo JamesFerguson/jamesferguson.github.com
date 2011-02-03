@@ -2,6 +2,7 @@
 layout: post
 category: scripting
 title: Escaping bang in Bash
+truncate_at: 106
 ---
 Bash. A venerable language; ugly... like, I mean:
 

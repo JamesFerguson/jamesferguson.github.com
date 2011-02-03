@@ -8,6 +8,7 @@ tags:
 - cookies
 - capybara
 - cucumber
+truncate_at: 111
 ---
 I once tried and failed to write a cucumber test for a remember-me login feature. I was using Webrat to drive Cucumber interactions at the time and it just didn't seem to provide the access to cookies I needed. So I logged a feature request with Webrat and left the test marked `pending`.
 
