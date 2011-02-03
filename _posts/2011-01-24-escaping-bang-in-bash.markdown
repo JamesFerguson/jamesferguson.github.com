@@ -17,7 +17,7 @@ Try this little exercise before you read further: try to get `echo "Don't break 
 
 Losing some hair?
 
-Ok, first things first, ! has special meaning. It "starts a history substitution, except when followed by a space, tab, newline, equals or left bracket (when the extglob shell option is enabled, which it is by default in OS X at least)."[^1] 
+Ok, first things first, ! has special meaning. It "starts a history substitution, except when followed by a space, tab, newline, equals or left bracket (when the extglob shell option is enabled, which it is by default in OS X)."[^1] 
 
 So `!echo` will search for the last command in history that begins with `echo` and substitute the whole line. If there's no matching command it'll give you the wonderfully cryptic `-bash: !echo: event not found`.
 
