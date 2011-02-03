@@ -12,14 +12,14 @@ title: home
         <p>{{ post.date | date: "%A, %B %d %Y" }}</p>
       </div>
       <div class="entry">
-        {% capture post_content %}{{ post.content | truncatewords: 110, "&#0133;" | replace: "<div class='sidenote'", "<!-- <div class='sidenote'" }}{% endcapture %}
+        {% capture post_content %}{{ post.content | truncatewords: 110, "&#8230;" | replace: "<div class='sidenote'", "<!-- <div class='sidenote'" }}{% endcapture %}
         {% unless post_content contains "<div class='sidenote'" %}
         {{ post_content }}
         {% else %}
           {% if post_content contains "</div>" %}
         {{ post_content | replace: "</div>", "</div> -->" }}
           {% else %}
-        {{ post_content | replace: "&#0133;", "-->&#0133;" }}
+        {{ post_content | replace: "&#8230;", "-->&#8230;" }}
           {% endif %}
         {% endunless %}
         &raquo; <a href="{{ post.url }}/" rel="bookmark">continue</a>
