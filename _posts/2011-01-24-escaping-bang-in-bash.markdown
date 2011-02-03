@@ -105,9 +105,26 @@ rgx = %q{(?x)           # ignore non-escaped whitespace, must start at index 0 o
 
 which is marginally closer to readable. Of course if you use `{}` in the regex you'll need to pick a different delimiter (e.g. `%q|regex|` or `%q^regex^` or something).
 
+## Conclusion
+
+To be honest, my conclusion is to use the following snippet of Ruby (found [here][snippet]):
+
+{% highlight ruby %}
+Dir['**/*.php'].each do |path|
+  File.open( path ) do |f|
+    f.grep( /search_string/ ) do |line|
+      puts path, ':', line
+    end
+  end
+end
+{% endhighlight %}
+
+to replace grep and then (in my case) pass the results into wget. That way I get native Ruby regexes, which require enough escaping as it is without passing them into another language to be escaped again. . . and especially not Bash!
+
 [braces]: http://www.gnu.org/software/bash/manual/bashref.html#Brace-Expansion
 [tildes]: http://www.gnu.org/software/bash/manual/bashref.html#Tilde-Expansion
 [file_globs]: http://www.gnu.org/software/bash/manual/bashref.html#Filename-Expansion
+[snippet]: http://kennethhunt.com/archives/001331.html
 
 [^1]: loosely quoting the Bash documentation
 [^2]: a negative look-ahead tells the pattern matcher not to continue matching if the characters ahead match those in the capture group, but it does not capture the characters looked at or advance the matchers' pointer. So `"foobaz".scan /foo(?!bar)/` returns `["foo"]` but `"foobar".scan /foo(?!bar)/` returns `[]`. There are positive look-aheads and negative and positive look-behinds as well. If you've used `\b` to match word boundaries you've used a positive lookahead.
