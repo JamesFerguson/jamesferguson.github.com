@@ -32,8 +32,8 @@ describe "a generic static site" do
     [^>a-zA-Z]                # last char before the link won't be a letter or a close tag
     \\K                       # don't include the above in the match; makes the above a lookbehind, but more efficient
     \\w+://                   # match all chars of protocol, :// is how we know we have a link
-    (?\\x21www.w3.org/)       # negative lookahead to exclude irrelevant and slow w3 urls; x21 is chr code for bang
-    [^\"\\'\\ >]*            # keep matching until dquo, squo, space or close tag
+    (?\\x21www.w3.org/|www.amazon.com/)  # neg lookahead, skip slow w3 urls, amazon rejects wget --spider; x21 is chr code for bang
+    [^\"\\'\\ >]*             # keep matching until dquo, squo, space or close tag
     RGX
     ext_link_pattern.gsub!(/^\s*|\s*#.*\n/, '') # (?x) must be at index 0
     
@@ -53,9 +53,9 @@ describe "a generic static site" do
       Spider\ mode\ enabled\.\ Check\ if\ remote\ file\ exists.\n
       | --\d{4,4}-\d\d-\d\d\ \d\d:\d\d:\d\d--\ \ 
       | ^Reusing\ existing\ connection\ to\ .*\.\n
-      | ^Resolving.*([12]?\d?\d\.){3,3}[12]?\d?\d\n
+      | ^Resolving.*([12]?\d?\d\.){3,3}[12]?\d?\d(,\ \.\.\.)?\n
       | ^Connecting.*\.\.\.\ connected\.\n
-      | HTTP\ request\ sent,\ awaiting\ response\.\.\.\ 200\ OK\n
+      | HTTP\ request\ sent,\ awaiting\ response\.\.\.\ (200\ OK)\n
       | ^Length:.*\nRemote\ file\ exists(?:\ and\ could\ contain\ further\ links\,\nbut\ recursion\ is\ disabled\ --\ not\ retrieving)?\.\n
       | ^WARNING:.*\n
       | \s*Self-signed\ certificate.*\n
@@ -113,9 +113,20 @@ describe "a generic static site" do
   it "contains valid html" do
     html_errors = Dir["#{APP_ROOT}/_site/**/*.html"].inject([]) do |errors, filename|
       content = File.foreach(filename).reduce(:+)
+      # ignore highlighted code html as we have no control over it
+      content.gsub!(/<div class='highlight'><pre><code class=.*?<\/code><\/pre>\s*<\/div>/m, '')
+      
+      if(filename =~ /#{APP_ROOT}\/_site\/index\..*/)
+        # truncation will break html in homepage entries and the entry itself will be checked elsewhere
+        content.gsub!(/(?<=<div class="entry">).*?(?=&#8230;\s*&raquo;)/m, '')
+      end
+      
       tidier = TidyFFI::Tidy.new(content)
       
-      errors << filename + ":\n" + tidier.errors if tidier.errors
+      if tidier.errors
+        err = filename + ":\n" + tidier.errors
+        errors << err.split("\n")
+      end
       
       errors
     end
