@@ -6,17 +6,17 @@ categories:
 tags:
 - cucumber
 - the\_checklist\_manifesto
-- 
+- best_practices
 ---
 Since getting into BDD and Cucumber I've been getting mixed messages about what should be covered by features and what shouldn't. 
 
-Firstly, as with TDD, I get the message that BDD tests are so important they should be written before you touch the code. But then, conflictingly, I've had a number of people suggest that if a feature is mostly provided by a gem or plugin or Rails itself then you shouldn't test it.
+Firstly, as with TDD, I'm told that BDD tests are so important they should be written before you touch the code. But then, conflictingly, I've had a number of people suggest that if a feature is mostly provided by a gem or plugin or Rails itself then you needn't test it.
 
-Now, granted, for TDD/Rspec I tend to agree - it'd be stupid to go spec-ing every magic method provided by Rails or Devise.
+Now, granted, for TDD/Rspec I tend to agree - it'd be futile to go spec-ing every magic method provided by Rails or Devise.
 
 In the case of BDD/Cucumber however, I disagree.
 
-There are some detailed reasons, but I'll keep them brief:
+Some brief reasons first:
 
 1. You've made a customer provide a story and told them it'll become a test. When you misconfigure the plugin and fail acceptance testing you don't just have rejected story, you have a customer wondering why they wrote the story.
 
@@ -26,7 +26,7 @@ There are some detailed reasons, but I'll keep them brief:
 
 But there's a broader point here...
 
-### The Checklist Manifesto
+### Stick to the Checklist
 
 [The Checklist Manifesto][checklist] is a book by Atul Gawande about how to reduce errors caused by simple oversights, particularly in highly complex professions. I know you're thinking this could just be another Seth-Godin-esque mishmash of oversimplified advice backed by nothing but charming anecdotes and overconfident rhetoric, except that Gawande actually backs his suggestions up with the results of applying it in a number of mission-critical hospital settings.
 
