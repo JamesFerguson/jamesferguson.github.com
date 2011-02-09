@@ -17,9 +17,15 @@ I like Agile, TDD/BDD and best practices in general.
 
 These are a few bits and pieces to show how awesome I am:
 
+### Linked In
+
+[My LinkedIn profile][linkedin_profile] has most of my resume details and the odd recommendation.
+
+[linkedin_profile]: http://www.linkedin.com/profile/view?id=46824040
+
 ### GitHub
 
-The first thing most people want is [my GitHub profile][github_profile]. There's some stuff there but I've only been working on personal projects since Nov 2010, so there isn't heaps.
+I have [a GitHub profile][github_profile]. There's some stuff there but I've only been working on personal projects since Nov 2010, so it's limited.
 
 [github_profile]: https://github.com/JamesFerguson
 
