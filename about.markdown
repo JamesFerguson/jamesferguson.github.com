@@ -3,7 +3,7 @@ layout: static
 title: about me
 ---
 
-# about me
+## about me
 
 This is the professional blog of James Ferguson, it was started in January, 2011. 
 
