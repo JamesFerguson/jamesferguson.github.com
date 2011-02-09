@@ -62,7 +62,7 @@ a:link, a:visited {
   text-decoration:none;
   border-bottom:#ef0050 1px dotted;
 }
-a:hover,a:active 
+a:hover, a:active 
 {
   color:#ef0050;
   text-decoration:none;
@@ -233,7 +233,7 @@ sub {
 #menu li.current_page_item a:hover,
 #menu li.current_page_item a:active
 {
-  color:#999;
+  color: #CCC;
   border:0;
 }
 
@@ -257,16 +257,16 @@ sub {
 
 #main h2 {
   padding: 4px;
-  font-size: 2em;   
+  font-size: 2.2em;
   line-height:1.2em;
-  font-weight: bold;
+/*  font-weight: bold;*/
 }
 
 #main h1 {
   padding: 4px;
-  font-size: 2em;   
+  font-size: 2.4em;   
   line-height:1.2em;
-  font-weight: bold;
+/*  font-weight: bold;*/
 }
 
 #main .post-title {
@@ -276,16 +276,16 @@ sub {
 
 #main h3 {
   padding: 4px;
-  font-size: 1.4em;   
+  font-size: 1.6em;   
   line-height:1.2em;
-  font-weight: bold;
+/*  font-weight: bold;*/
 }
 #main h2 a 
 {
   border:0;
   font-family:Georgia,serif;
-  font-size:1.1em;
-  font-weight:normal;
+/*  font-size:1.1em;*/
+/*  font-weight:normal;*/
   color:#999;
 }
 
@@ -293,9 +293,13 @@ sub {
 {
   border:0;
   font-family:Georgia,serif;
-  font-size:1.1em;
-  font-weight:normal;
+/*  font-size:1.1em;*/
+/*  font-weight:normal;*/
   color:#999;
+}
+
+#main h1 a:hover, #main h2 a:hover {
+  color: #CCC;
 }
 
 #content ul {
