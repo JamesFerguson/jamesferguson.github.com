@@ -51,5 +51,5 @@ rotate randomly through the photos in that album.
 1. Do 1 & 2 above and then select the Screensaver tab
 1. In the left side menu choose the Top Rated album.
 1. Choose a display style: Slideshow, Collage or Mosaic
-1. Choose 'Options...' and tick 'Present slides in random order' and anything else that you want (I tick them all except the last one)
+1. Choose 'Options...' and tick 'Present slides in random order' and anything else that you want
 
