@@ -25,13 +25,16 @@ These are a few bits and pieces to show how awesome I am:
 
 ### github
 
-I have [a GitHub profile][github_profile]. There's some stuff there but I've only been working on personal projects since Nov 2010, so it's limited.
+I have [a GitHub profile][github_profile]. There's some stuff there including this blog.
+
+The most developed project (as of Sep 2011) is tv-shows which scrapes the online offerings of the major TV channels and allows users to subscribe to shows and a feed of new shows. There's a live version of tv-shows, with the working name all-the-episodes. You can check it out by subscribing to [the new TV shows feed][all_the_episodes] in your favourite RSS feed reader/aggregator.
 
 [github_profile]: https://github.com/JamesFerguson
+[all_the_episodes]: http://all-the-episodes.heroku.com/tv_shows.atom
 
 ### Stack Overflow
 
-[The ubiquitous Q&A site for programmers][stack_overflow] has a system of badges and reputation points to track your contributions (and let's be honest to get you addicted to the site). My profile is a bit bare because I've only been active since Nov 2010.
+[The ubiquitous Q&A site for programmers][stack_overflow] has a system of badges and reputation points to track your contributions (and, let's be honest, to get you addicted to the site). My profile is a bit bare because I've only been active since Nov 2010.
 
 <a href="http://stackoverflow.com/users/468629/jim">
 <img src="http://stackoverflow.com/users/flair/468629.png" width="208" height="58" alt="Stack Overflow profile for jim at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="Stack Overflow profile for jim at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
