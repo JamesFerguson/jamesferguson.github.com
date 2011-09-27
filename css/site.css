@@ -31,8 +31,14 @@ p {
 }
 
 #footer {
-  text-align: left;
+  text-align: center;
   font-size: 0.8em;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+#footer .content a img {
+  vertical-align: middle;
 }
 
 .comments {
