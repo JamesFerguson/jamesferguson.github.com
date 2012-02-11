@@ -14,7 +14,6 @@ ALT_DOMAINS = [
 describe "a generic static site" do
   
   it "uses valid, resolvable links" do
-    # pending
     spider_results = `wget -r --spider -l inf -p http://#{TEST_DOMAIN} 2>&1`
     status = $?.exitstatus
     
@@ -94,7 +93,7 @@ describe "a generic static site" do
     alt_lookup_res = `wget --spider -nv #{ALT_DOMAINS.join(' ')} 2>&1`
     status = $?.exitstatus
     
-    errors = alt_lookup_res.scan(/^.*(?<! 200 OK)$/)
+    errors = alt_lookup_res.scan(/^.*(?<!http:\/\/#{PROD_DOMAIN}\/ 200 OK)$/)
     
     errors.should == []
     status.should == 0
