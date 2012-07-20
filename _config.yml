@@ -2,7 +2,7 @@ auto:                 true
 server:               true
 server_port:          4000
                       
-safe:                 true
+safe:                 false
 lsi:                  false
                       
 markdown:             maruku
@@ -17,6 +17,6 @@ url:                  http://j-ferguson.com/
 name:                 simply coding
 tagline:              Seek simplicity and distrust it.
 tagline_attribution:  Alfred North Whitehead
-jekyll_version:       0.10.0
+jekyll_version:       0.11.2
 stylesheet_url:       /css/site.css
 atom_url:             /rss/atom.xml
