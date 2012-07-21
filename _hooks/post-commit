@@ -53,5 +53,5 @@ function publish() {
   fi
 }
 
-publish | tee ~Coding/jamesferguson.github.com/_hooks/log/post-commit.log
+publish | tee ~/Coding/jamesferguson.github.com/_hooks/log/post-commit.log
 
