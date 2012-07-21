@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+exec &> /Users/jim/Coding/jamesferguson.github.com/_hooks/log/publish.log
+
 function publish() {
   # executables prefix
   _prefix="/usr/bin"
@@ -45,4 +47,4 @@ function publish() {
   fi
 }
 
-publish | tee "/Users/jim/Coding/jamesferguson.github.com/_hooks/log/publish.log"
+publish
