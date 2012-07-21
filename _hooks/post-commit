@@ -1,57 +1,54 @@
 #!/bin/bash
 #
-# An example hook script that is called after a successful
-# commit is made.
+# Based on https://gist.github.com/1002667
 #
-# To enable this hook, rename this file to "post-commit".
+# Usage: place in <project root>/.git/hooks, must be named post-commit, must be chmod +x
+
+# executable paths
+GREP="/usr/bin/grep"
+CUT="/usr/bin/cut"
+JEKYLL="/Users/jim/.rvm/gems/ruby-1.9.2-p290@jamesferguson.github.com/bin/jekyll"
+GIT="/usr/local/git/bin/git"
+RM="/bin/rm"
+
+PROJ_ROOT="$("$GIT" rev-parse --show-toplevel)"
+
+# Config
+JEKYLL_OPTIONS=(--no-safe --no-server --no-auto)
+
+SRC_BRANCH="master"
+PUBLISH_BRANCH="gh-pages"
+
+# directory holding the generated site -- should be outside this repo
+TMP_SITE_DIR="$("/usr/bin/mktemp" -d /tmp/_site.XXXXXXXXX)"
+
 
 function publish() {
-  # have some stdout
-  echo "starting post-commit hook"
 
-  # executables prefix
-  _prefix="/usr/bin"
-  # git executable
-  _git="/usr/local/git/bin/git"
-  GREP="/usr/bin/grep"
-  CUT="/usr/bin/cut"
-
-  # site generation executable
-  _generate="/Users/jim/.rvm/gems/ruby-1.9.2-p290@jamesferguson.github.com/bin/jekyll"
-  # options for the generator
-  _opts=(--no-safe --no-server --no-auto)
-
-  # branch from which to generate site
-  _origbranch="master"
-  # branch holding the generated site
-  _destbranch="gh-pages"
-
-  # directory holding the generated site -- should be outside this repo
-  _site="$("/usr/bin/mktemp" -d /tmp/_site.XXXXXXXXX)"
   # the current branch
-  _currbranch="$($GREP "^*" < <("$_git" branch) | $CUT -d' ' -f2)"
+  _currbranch="$($GREP "^*" < <("$GIT" branch) | $CUT -d' ' -f2)"
 
-  if [[ $_currbranch == $_origbranch ]]; then # we should generate the site
+  if [[ $_currbranch == $SRC_BRANCH ]]; then # we should generate the site
       # go to root dir of the repo
-      cd "$("$_git" rev-parse --show-toplevel)"
+      cd $PROJ_ROOT
       # generate the site
-      "$_generate" ${_opts[@]} . "$_site"
+      "$JEKYLL" ${JEKYLL_OPTIONS[@]} . "$TMP_SITE_DIR"
       # switch to branch the site will be stored
-      "$_git" checkout "$_destbranch"
+      "$GIT" checkout "$PUBLISH_BRANCH"
       # overwrite existing files
       builtin shopt -s dotglob
-      /bin/cp -rf "$_site"/* .
+      /bin/cp -rf "$TMP_SITE_DIR"/* .
       builtin shopt -u dotglob
       # add any new files
-      "$_git" add .
+      "$GIT" add .
       # commit all changes with a default message
-      "$_git" commit -a -m "updated site @ $(date +"%F %T")"
+      "$GIT" commit -a -m "updated site @ $(date +"%F %T")"
       # cleanup
-      /bin/rm -rfv "$_site"
+      "$RM -rfv $TMP_SITE_DIR"
       # return
-      "$_git" checkout "$_origbranch"
+      "$GIT" checkout "$SRC_BRANCH"
   fi
 }
 
-publish | tee ~/Coding/jamesferguson.github.com/_hooks/log/post-commit.log
+publish | tee "$PROJ_ROOT/_hooks/log/post-commit.log"
 
