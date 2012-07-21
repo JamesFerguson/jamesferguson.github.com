@@ -10,8 +10,9 @@ CUT="/usr/bin/cut"
 JEKYLL="/Users/jim/.rvm/gems/ruby-1.9.2-p290@jamesferguson.github.com/bin/jekyll"
 GIT="/usr/local/git/bin/git"
 RM="/bin/rm"
+CP="/bin/cp"
 
-PROJ_ROOT="$("$GIT" rev-parse --show-toplevel)"
+PROJ_ROOT="$($GIT rev-parse --show-toplevel)"
 
 # Config
 JEKYLL_OPTIONS=(--no-safe --no-server --no-auto)
@@ -26,18 +27,19 @@ TMP_SITE_DIR="$("/usr/bin/mktemp" -d /tmp/_site.XXXXXXXXX)"
 function publish() {
 
   # the current branch
-  _currbranch="$($GREP "^*" < <("$GIT" branch) | $CUT -d' ' -f2)"
+  CURRENT_BRANCH="$($GREP "^*" < <("$GIT" branch) | $CUT -d' ' -f2)"
 
-  if [[ $_currbranch == $SRC_BRANCH ]]; then # we should generate the site
-      # go to root dir of the repo
+  # only publish if this commit was made on SRC_BRANCH
+  if [[ $CURRENT_BRANCH == $SRC_BRANCH ]]; then
       cd $PROJ_ROOT
+
       # generate the site
       "$JEKYLL" ${JEKYLL_OPTIONS[@]} . "$TMP_SITE_DIR"
-      # switch to branch the site will be stored
+
       "$GIT" checkout "$PUBLISH_BRANCH"
       # overwrite existing files
       builtin shopt -s dotglob
-      /bin/cp -rf "$TMP_SITE_DIR"/* .
+      "$CP -rf $TMP_SITE_DIR/* ."
       builtin shopt -u dotglob
       # add any new files
       "$GIT" add .
