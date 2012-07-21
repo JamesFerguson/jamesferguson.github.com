@@ -38,7 +38,7 @@ function publish() {
       "$GIT" checkout "$PUBLISH_BRANCH"
       # overwrite existing files
       builtin shopt -s dotglob
-      /bin/cp -rf "$_site"/* .
+      /bin/cp -rf "$TMP_SITE_DIR"/* .
       builtin shopt -u dotglob
       # add any new files
       "$GIT" add .
