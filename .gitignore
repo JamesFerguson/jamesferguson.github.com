@@ -38,3 +38,6 @@ _site/
 
 # Git Achievements - just a placeholder for testing, don't want to clobber the live /git-achievements
 git-achievements/
+
+# Ignore logs
+_hooks/log
