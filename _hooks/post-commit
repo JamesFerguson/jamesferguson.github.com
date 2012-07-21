@@ -20,14 +20,13 @@ JEKYLL_OPTIONS=(--no-safe --no-server --no-auto)
 SRC_BRANCH="master"
 PUBLISH_BRANCH="gh-pages"
 
-# directory holding the generated site -- should be outside this repo
-TMP_SITE_DIR="$("/usr/bin/mktemp" -d /tmp/_site.XXXXXXXXX)"
-
-
 function publish() {
 
   # the current branch
   CURRENT_BRANCH="$($GREP "^*" < <("$GIT" branch) | $CUT -d' ' -f2)"
+
+  # directory holding the generated site -- should be outside this repo
+  TMP_SITE_DIR="$("/usr/bin/mktemp" -d /tmp/_site.XXXXXXXXX)"
 
   # only publish if this commit was made on SRC_BRANCH
   if [[ $CURRENT_BRANCH == $SRC_BRANCH ]]; then
