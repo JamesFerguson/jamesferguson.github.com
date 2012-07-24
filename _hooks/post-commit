@@ -30,20 +30,21 @@ function publish() {
 
   # only publish if this commit was made on SRC_BRANCH
   if [[ $CURRENT_BRANCH == $SRC_BRANCH ]]; then
-      cd $PROJ_ROOT
 
-      # generate the site
+      # generate the site to temp dir
+      cd $PROJ_ROOT
       "$JEKYLL" ${JEKYLL_OPTIONS[@]} . "$TMP_SITE_DIR"
 
       "$GIT" checkout "$PUBLISH_BRANCH"
+
       # overwrite existing files
       builtin shopt -s dotglob
-      "$CP" -rf "$TMP_SITE_DIR"/* .
+      /bin/cp -rf "$TMP_SITE_DIR"/* .
       builtin shopt -u dotglob
-      # add any new files
+
       "$GIT" add .
-      # commit all changes with a default message
       "$GIT" commit -a -m "updated site @ $(date +"%F %T")"
+
       # cleanup
       "$RM -rfv $TMP_SITE_DIR"
       # return
