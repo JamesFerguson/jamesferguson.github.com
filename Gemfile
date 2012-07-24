@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'jekyll'
+gem 'growl'
 
 # Fast LSI gen
 # gem 'rb-gsl'
