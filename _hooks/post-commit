@@ -39,14 +39,14 @@ function publish() {
 
       # overwrite existing files
       builtin shopt -s dotglob
-      /bin/cp -rf "$TMP_SITE_DIR"/* .
+      "$CP" -rf "$TMP_SITE_DIR"/* .
       builtin shopt -u dotglob
 
       "$GIT" add .
       "$GIT" commit -a -m "updated site @ $(date +"%F %T")"
 
       # cleanup
-      "$RM -rfv $TMP_SITE_DIR"
+      "$RM" -rfv "$TMP_SITE_DIR"
       # return
       "$GIT" checkout "$SRC_BRANCH"
   fi
