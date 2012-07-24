@@ -31,24 +31,27 @@ function publish() {
   # only publish if this commit was made on SRC_BRANCH
   if [[ $CURRENT_BRANCH == $SRC_BRANCH ]]; then
 
-      # generate the site to temp dir
-      cd $PROJ_ROOT
-      "$JEKYLL" ${JEKYLL_OPTIONS[@]} . "$TMP_SITE_DIR"
+    # Don't assume we'll lazily commit all changes at once
+    "$GIT" stash
 
-      "$GIT" checkout "$PUBLISH_BRANCH"
+    # generate the site to temp dir
+    cd $PROJ_ROOT
+    "$JEKYLL" ${JEKYLL_OPTIONS[@]} . "$TMP_SITE_DIR"
 
-      # overwrite existing files
-      builtin shopt -s dotglob
-      "$CP" -rf "$TMP_SITE_DIR"/* .
-      builtin shopt -u dotglob
+    "$GIT" checkout "$PUBLISH_BRANCH"
 
-      "$GIT" add .
-      "$GIT" commit -a -m "updated site @ $(date +"%F %T")"
+    # overwrite existing files
+    builtin shopt -s dotglob
+    "$CP" -rf "$TMP_SITE_DIR"/* .
+    builtin shopt -u dotglob
 
-      # cleanup
-      "$RM" -rfv "$TMP_SITE_DIR"
-      # return
-      "$GIT" checkout "$SRC_BRANCH"
+    "$GIT" add .
+    "$GIT" commit -a -m "updated site @ $(date +"%F %T")"
+
+    # cleanup and restore
+    "$RM" -rfv "$TMP_SITE_DIR"
+    "$GIT" checkout "$SRC_BRANCH"
+    "$GIT" stash pop
   fi
 }
 
