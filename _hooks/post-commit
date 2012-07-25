@@ -17,8 +17,8 @@ PROJ_ROOT="$($GIT rev-parse --show-toplevel)"
 # Config
 JEKYLL_OPTIONS=(--no-safe --no-server --no-auto)
 
-SRC_BRANCH="master"
-PUBLISH_BRANCH="gh-pages"
+SRC_BRANCH="develop"
+PUBLISH_BRANCH="master"
 
 function publish() {
 
