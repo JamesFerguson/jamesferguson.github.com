@@ -2,6 +2,7 @@ source :rubygems
 
 gem 'jekyll'
 gem 'growl'
+gem 'coffee-script'
 
 # Fast LSI gen
 # gem 'rb-gsl'
