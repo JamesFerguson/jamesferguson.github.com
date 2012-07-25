@@ -1,27 +1,428 @@
----
-layout: nil
----
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Simplicity is Hard</title>
- <link href="{{ site.url }}{{ site.atom_url | remove_first: '/' }}" rel="self"/>
- <link href="{{ site.url }}"/>
- <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>{{ site.url }}</id>
+ <link href="http://j-ferguson.com/rss/atom.xml" rel="self"/>
+ <link href="http://j-ferguson.com/"/>
+ <updated>2012-07-25T19:39:58+10:00</updated>
+ <id>http://j-ferguson.com/</id>
  <author>
    <name>James Ferguson</name>
    <email>james.ferguson7+techblog with Google's mail service</email>
  </author>
 
- {% for post in site.posts %}
+ 
  <entry>
-   <title>{{ post.title }}</title>
-   <link href="{{ site.url }}{{ post.url | remove_first: '/' }}/"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>{{ site.url }}{{ post.id }}</id>
-   <content type="html">{{ post.content | xml_escape }}</content>
+   <title>The Obligatory Jekyll Post</title>
+   <link href="http://j-ferguson.com/rspec/obligatory-jekyll-post/"/>
+   <updated>2012-02-11T00:00:00+11:00</updated>
+   <id>http://j-ferguson.com//rspec/obligatory-jekyll-post</id>
+   <content type="html">&lt;p&gt;I remember when I was setting up this blog noticing the number of people who&amp;#8217;d just switched to Jekyll and immediately produced a post about some neat trick they&amp;#8217;d found in the process.&lt;/p&gt;
+
+&lt;p&gt;Well, I had something up my sleeve for a Jekyll-related post after I started this blog, but I&amp;#8217;m only just posting it now.&lt;/p&gt;
+
+&lt;h3 id='specs_for_any_jekyll_site'&gt;Specs for any Jekyll site&lt;/h3&gt;
+
+&lt;p&gt;I wrote up some nice generic specs for a Jekyll blog. You can see &lt;a href='https://github.com/JamesFerguson/jamesferguson.github.com/blob/master/spec/site_spec.rb'&gt;the source&lt;/a&gt; in this blog&amp;#8217;s repo.&lt;/p&gt;
+
+&lt;p&gt;The specs check that your site:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;uses valid, resolvable (internal) links:&lt;/strong&gt; uses wget to spider the site itself and checks the exit code as well as scanning the output for error messages and expecting there to be none.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;uses valid external links:&lt;/strong&gt; recursively grep the _site folder for links to anywhere other than the local site (removing duplicate links) then wget the page headers, remove all the expected output (200 OK&amp;#8217;s, irrelevant chatter and known warnings) and expect the result to be blank.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;doesn&amp;#8217;t contain known templating errors:&lt;/strong&gt; unfortunately the liquid templating engine sometimes spews errors into the generated html rather than outputting them on the comand line. This greps the _site directory for known patterns of template errors and expects the resulting array to be empty.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;correctly redirects alternate doamins to itself:&lt;/strong&gt; because we here at the j-ferguson global headquarters take our branding extremely seriously, it&amp;#8217;s necessary to check that all the alternate domains we &lt;del&gt;were stupid enough to buy&lt;/del&gt; own correctly resolve to j-ferguson.com. We do this by doing a wget spider of the domains with reduced output and expecting to only see 200 OK&amp;#8217;s of j-ferguson.com output.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;produces no maruku errors:&lt;/strong&gt; in case you&amp;#8217;re not paying attention to the output of &lt;code&gt;jekyll --auto&lt;/code&gt; or something this spec generates the site once and checks for any errors output.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;contains valid html:&lt;/strong&gt; this spec depends on tidy_ffi. It reads all the html under _site/, runs it through tidy_ffi, collects the errors and expects the resulting array to be empty.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Running these just now caught a minor html validation oversight and also alerted me to the fact that the &lt;a href='https://github.com/icefox/git-achievements'&gt;git-achievements&lt;/a&gt; plugin I use was producing my &lt;a href='/git-achievements/'&gt;git-achievments&lt;/a&gt; page with lots of now defunct links to the old kernel.org git man pages. So of course I dutifully filed &lt;a href='https://github.com/icefox/git-achievements/issues/53'&gt;an issue&lt;/a&gt; with the project.&lt;/p&gt;
+
+&lt;p&gt;It was putting together some of the chunky regexes in this spec the led to the other &lt;a href='/scripting/escaping-bang-in-bash/'&gt;post on escaping bang in bash&lt;/a&gt; you may recognize the regex at the end from the &amp;#8216;uses valid external links&amp;#8217; spec.&lt;/p&gt;
+
+&lt;h2 id='pending'&gt;pending&lt;/h2&gt;
+
+&lt;p&gt;Finally, you might have also noticed a couple of unfinished specs. Consider them exercises for the reader ;)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;offers a valid rss feed:&lt;/strong&gt; pass the site&amp;#8217;s atom feed url into &lt;code&gt;http://feedvalidator.org/check.cgi?url=\&amp;lt;feed url\&amp;gt;&lt;/code&gt; and parse the output for errors.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;uses valid js:&lt;/strong&gt; somehow use &lt;a href='https://github.com/psionides/jslint_on_rails'&gt;jslint on rails&lt;/a&gt; to syntax check any js in the site.&lt;/li&gt;
+&lt;/ol&gt;</content>
  </entry>
- {% endfor %}
+ 
+ <entry>
+   <title>Putting Photos to Work</title>
+   <link href="http://j-ferguson.com/osx/put-photos-to-work/"/>
+   <updated>2011-09-15T00:00:00+10:00</updated>
+   <id>http://j-ferguson.com//osx/put-photos-to-work</id>
+   <content type="html">&lt;p&gt;You&amp;#8217;ve taken thousands of stunning photos with your new, expensive camera and uploaded them to your Mac. So now what?&lt;/p&gt;
+
+&lt;p&gt;This is a very basic guide about how to use your favourite photos as rotating desktop wallpaper or in your screensaver. Rather than having to do something tedious like manually putting favourite photos in a special folder or a special album we&amp;#8217;ll piggyback on iPhoto&amp;#8217;s rating system so any photo rated 4 or 5 stars is automagically used in or collection of top photos.&lt;/p&gt;
+
+&lt;p&gt;Ok. So we can break this into two parts; first we want to create a Smart Album that&amp;#8217;ll automatically include all of your top rated photos. Second you can set your wallpaper and/or screensaver to rotate randomly through the photos in that album.&lt;/p&gt;
+
+&lt;h3 id='part_1_the_smart_album'&gt;Part 1: The Smart Album&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;In iPhoto click the File menu, click New and choose Smart Album&amp;#8230;&lt;/li&gt;
+
+&lt;li&gt;Give the Album a name, e.g. &amp;#8216;Top Rated&amp;#8217;&lt;/li&gt;
+
+&lt;li&gt;In the first drop down choose &amp;#8216;My Rating&amp;#8217; and in the second choose &amp;#8216;is greater than&amp;#8217;&lt;/li&gt;
+
+&lt;li&gt;Where the 5 empty stars are click the middle one to indicate 3 stars (i.e. &amp;#8216;greater than&amp;#8217; + &amp;#8216;3 stars&amp;#8217; = any photo rated 4 or 5 stars)&lt;/li&gt;
+
+&lt;li&gt;Click &amp;#8216;OK&amp;#8217; and you should see your new album on the left under &amp;#8216;Albums&amp;#8217;&lt;/li&gt;
+
+&lt;li&gt;Go to the &amp;#8216;View&amp;#8217; menu and ensure &amp;#8216;Ratings&amp;#8217; is ticked, then click on a photo and you should see some empty stars.&lt;/li&gt;
+
+&lt;li&gt;Click on the 4th star from the left to give the photo a rating of 4 stars. You should now see it come up in the Top Rated album.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id='part_2_using_the_smart_album'&gt;Part 2: Using the Smart Album&lt;/h3&gt;
+
+&lt;h4 id='a_for_your_desktop_wallpaper'&gt;A. For Your Desktop Wallpaper&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Open the System Preferences app.&lt;/li&gt;
+
+&lt;li&gt;Choose Desktop &amp;amp; Screen Saver&lt;/li&gt;
+
+&lt;li&gt;Select the Desktop tab&lt;/li&gt;
+
+&lt;li&gt;If necessary expand the iPhoto section&lt;/li&gt;
+
+&lt;li&gt;Choose the Top Rated album.&lt;/li&gt;
+
+&lt;li&gt;Tick &amp;#8216;Change picture&amp;#8217; and select a schedule, e.g. Every 30 minutes&lt;/li&gt;
+
+&lt;li&gt;Tick &amp;#8216;Random order&amp;#8217; to ensure you end up seeing all the photos.&lt;/li&gt;
+
+&lt;li&gt;You might also want to change the way the image is presented (Stretch, Center, Tile etc), no option is going to work perfectly for every image. I use &amp;#8216;Fit to Screen&amp;#8217;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id='b_for_your_screensaver'&gt;B. For Your Screensaver&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Do 1 &amp;amp; 2 above and then select the Screensaver tab&lt;/li&gt;
+
+&lt;li&gt;In the left side menu choose the Top Rated album.&lt;/li&gt;
+
+&lt;li&gt;Choose a display style: Slideshow, Collage or Mosaic&lt;/li&gt;
+
+&lt;li&gt;Choose &amp;#8216;Options&amp;#8230;&amp;#8217; and tick &amp;#8216;Present slides in random order&amp;#8217; and anything else that you want&lt;/li&gt;
+&lt;/ol&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>When To Cuke</title>
+   <link href="http://j-ferguson.com/testing/bdd/when-to-cuke/"/>
+   <updated>2011-01-28T00:00:00+11:00</updated>
+   <id>http://j-ferguson.com//testing/bdd/when-to-cuke</id>
+   <content type="html">&lt;p&gt;Since getting into BDD and Cucumber I&amp;#8217;ve been getting mixed messages about what should be covered by features and what shouldn&amp;#8217;t.&lt;/p&gt;
+
+&lt;p&gt;Firstly, as with TDD, I&amp;#8217;m told that BDD tests are so important they should be written before you touch the code. But then, conflictingly, I&amp;#8217;ve had a number of people suggest that if a feature is mostly provided by a gem or plugin or Rails itself then you needn&amp;#8217;t test it.&lt;/p&gt;
+
+&lt;p&gt;Now, granted, for TDD/Rspec I tend to agree - it&amp;#8217;d be futile to go spec-ing every magic method provided by Rails or Devise.&lt;/p&gt;
+
+&lt;p&gt;In the case of BDD/Cucumber however, I disagree.&lt;/p&gt;
+
+&lt;p&gt;Some brief reasons first:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;You&amp;#8217;ve made a customer provide a story and told them it&amp;#8217;ll become a test. When you misconfigure the plugin and fail acceptance testing you don&amp;#8217;t just have rejected story, you have a customer wondering why they wrote the story.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;BDD testing makes you think about trivialities like email copy and flash messages which are easy to forget to customise. Some customers may not care but for the rest you&amp;#8217;ll look slapdash for ignoring their stories.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;I&amp;#8217;ve seen it catch bugs. I was implementing Devise and went to the trouble of cuke-ing the Resend Confirmation page and I was surprised to see it fail with a big ugly broken template message. A bad Find/Replace had introduced a wayward space into the path of a partial.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But there&amp;#8217;s a broader point here&amp;#8230;&lt;/p&gt;
+
+&lt;h3 id='stick_to_the_checklist'&gt;Stick to the Checklist&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href='http://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0805091742' title='The Checklist Manifesto on Amazon'&gt;The Checklist Manifesto&lt;/a&gt; is a book by Atul Gawande about how to reduce errors caused by simple oversights, particularly in highly complex professions. I know you&amp;#8217;re thinking this could just be another Seth-Godin-esque mishmash of oversimplified advice backed by nothing but charming anecdotes and overconfident rhetoric, except that Gawande actually backs his suggestions up with the results of applying it in a number of mission-critical hospital settings.&lt;/p&gt;
+
+&lt;p&gt;Now I haven&amp;#8217;t actually read the book yet, but the idea is pretty obvious from the title, professionals dealing with significant complexity need checklists to avoid silly mistakes. To quote a reviewer:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;[Gawande] walks us through a series of examples from medicine showing how the routine tasks of surgeons have now become so incredibly complicated that mistakes &amp;#8230; are virtually inevitable: it&amp;#8217;s just too easy for an otherwise competent doctor to miss a step, or forget to ask a key question&amp;#8230; Gawande then visits with pilots and the people who build skyscrapers and comes back with a solution. Experts need checklists&amp;#8211;literally&amp;#8211;written guides that walk them through the key steps in any complex procedure. In the last section of the book, Gawande shows how his research team has taken this idea, developed a safe surgery checklist, and applied it around the world, with staggering success.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Gawande&amp;#8217;s idea isn&amp;#8217;t new, in fact it&amp;#8217;s exactly what BDD is about, though BDD adds automated testing&lt;sup id='fnref:1'&gt;&lt;a href='#fn:1' rel='footnote'&gt;1&lt;/a&gt;&lt;/sup&gt;. Notice though, that it&amp;#8217;s not what TDD is about. Specs test &amp;#8220;Does this work as I expect it to?&amp;#8221; but Cucumber features test &amp;#8220;Have I provided all the functionality the customer asked for?&amp;#8221;.&lt;/p&gt;
+
+&lt;p&gt;The first question can often be assumed to be true if the function is provided by third-party code. There will often be very little complexity in the inputs and outputs of a single function and good third-party code will have its own tests. However, when testing a feature/story you&amp;#8217;re not just testing multiple functions (which, I admit, may well all reside in third party code and be tested there), you&amp;#8217;re checking off customer expectations against the implementation provided by that third party code.&lt;/p&gt;
+
+&lt;p&gt;So, unless the third-party code was custom built for your customer, you can&amp;#8217;t expect it meets their expectations.&lt;/p&gt;
+&lt;div class='footnotes'&gt;&lt;hr /&gt;&lt;ol&gt;&lt;li id='fn:1'&gt;
+&lt;p&gt;Gawande apparently argues that checklists need to be applied by someone other than ourselves and for developers it makes sense to have that someone be the computer.&lt;/p&gt;
+&lt;a href='#fnref:1' rev='footnote'&gt;&amp;#8617;&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Hacking Capybara Cookies</title>
+   <link href="http://j-ferguson.com/testing/bdd/hacking-capybara-cookies/"/>
+   <updated>2011-01-28T00:00:00+11:00</updated>
+   <id>http://j-ferguson.com//testing/bdd/hacking-capybara-cookies</id>
+   <content type="html">&lt;p&gt;I once tried and failed to write a cucumber test for a remember-me login feature. I was using Webrat to drive Cucumber interactions at the time and it just didn&amp;#8217;t seem to provide the access to cookies I needed. So I logged a feature request with Webrat and left the test marked &lt;code&gt;pending&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Fast forward to more recent times and I was cukeing login features but using Capybara to drive it. So when it came to the remember-me feature I tried again hoping that Capybara might be more supportive. It wasn&amp;#8217;t directly, but thanks to this &lt;a href='https://gist.github.com/484787'&gt;nifty little gist&lt;/a&gt; I was able to hack in what I needed.&lt;/p&gt;
+
+&lt;p&gt;The gist, which has since become &lt;a href='https://github.com/nruth/show_me_the_cookies'&gt;the &lt;code&gt;show_me_the_cookies&lt;/code&gt; gem&lt;/a&gt;, had one flaw: it explicitly deleted a session cookie that it expected to expire by name. To me that seemed like cheating, I wanted to simulate a browser session restart - cookies are deleted because they&amp;#8217;re past their expiry date or because the don&amp;#8217;t have an expiry date and so are considered (browsing) &amp;#8216;session&amp;#8217; cookies. But it wasn&amp;#8217;t hard to fix.&lt;/p&gt;
+
+&lt;p&gt;For a simple Rack-based scenario the gist basically did the following:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='gherkin'&gt;&lt;span class='c'&gt;# features/step_definitions/app_websteps.rb&lt;/span&gt;&lt;span class='nf' /&gt;
+&lt;span class='k'&gt;Given &lt;/span&gt;&lt;span class='nf'&gt;/^I close my browser$/ do&lt;/span&gt;
+&lt;span class='nf'&gt;  delete_cookie session_cookie_name&lt;/span&gt;
+&lt;span class='nf'&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='c1'&gt;# features/support/cookie_helper.rb&lt;/span&gt;
+&lt;span class='n'&gt;existing_cookie&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;Rails&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;application&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;config&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;session_options&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='ss'&gt;:key&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;rescue&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;_session_id&amp;quot;&lt;/span&gt; &lt;span class='c1'&gt;# the first is Rails3 only&lt;/span&gt;
+
+&lt;span class='n'&gt;rack_session&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;Capybara&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;current_session&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;driver&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;current_session&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;instance_variable_get&lt;/span&gt;&lt;span class='p'&gt;(:&lt;/span&gt;&lt;span class='vi'&gt;@rack_mock_session&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;rack_session&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;cookie_jar&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;instance_variable_get&lt;/span&gt;&lt;span class='p'&gt;(:&lt;/span&gt;&lt;span class='vi'&gt;@cookies&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;reject!&lt;/span&gt; &lt;span class='k'&gt;do&lt;/span&gt; &lt;span class='o'&gt;|&lt;/span&gt;&lt;span class='n'&gt;existing_cookie&lt;/span&gt;&lt;span class='o'&gt;|&lt;/span&gt;
+  &lt;span class='n'&gt;existing_cookie&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;name&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;downcase&lt;/span&gt; &lt;span class='o'&gt;==&lt;/span&gt; &lt;span class='n'&gt;cookie_name&lt;/span&gt;
+&lt;span class='k'&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;My change is just one line of code:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='diff'&gt;# features/support/cookie_helper.rb
+existing_cookie = Rails.application.config.session_options[:key] rescue &amp;quot;_session_id&amp;quot; # the first is Rails3 only
+
+rack_session = Capybara.current_session.driver.current_session.instance_variable_get(:@rack_mock_session)
+
+rack_session.cookie_jar.instance_variable_get(:@cookies).reject! do |existing_cookie|
+&lt;span class='gd'&gt;-  existing_cookie.name.downcase == cookie_name&lt;/span&gt;
+&lt;span class='gi'&gt;+  # catch session cookies/no expiry (nil) and past expiry (true)&lt;/span&gt;
+&lt;span class='gi'&gt;+  existing_cookie.expired? != false&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;!= false&lt;/code&gt; rather than just returning the boolean is because &lt;code&gt;.expired?&lt;/code&gt; returns &lt;code&gt;nil&lt;/code&gt; if the cookie doesn&amp;#8217;t have an expiry date. We want to remove cookies that are expired &lt;em&gt;and&lt;/em&gt; cookies with no expiry date because this is what a browser does when you restart it.&lt;/p&gt;
+
+&lt;h2 id='show_me_the_cookies'&gt;show_me_the_cookies&lt;/h2&gt;
+
+&lt;p&gt;You should definitely use the &lt;code&gt;show_me_the_cookies&lt;/code&gt; gem if you need a cookie checking Cucumber step. It&amp;#8217;s a lot less unsightly than the above chain of eight method calls, it&amp;#8217;s more likely to be maintained and it offers a bit more:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;a &lt;code&gt;delete_cookie(name)&lt;/code&gt; method with an implementation like the one from the gist shown above&lt;/li&gt;
+
+&lt;li&gt;as the name suggests a &lt;code&gt;show_me_the_cookies&lt;/code&gt; method to read the cookies&lt;/li&gt;
+
+&lt;li&gt;Selenium support for both&lt;/li&gt;
+
+&lt;li&gt;Culerity support for both&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you want my &lt;code&gt;restart_browser&lt;/code&gt; implementation you&amp;#8217;re going to have to hack it into the gem, monkey patch it, contribute it as a patch or wait for me to submit a patch.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Escaping bang in Bash</title>
+   <link href="http://j-ferguson.com/scripting/escaping-bang-in-bash/"/>
+   <updated>2011-01-24T00:00:00+11:00</updated>
+   <id>http://j-ferguson.com//scripting/escaping-bang-in-bash</id>
+   <content type="html">&lt;p&gt;Bash. A venerable language; ugly&amp;#8230; like, I mean:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='text'&gt;if [ -a file.txt ]; then
+  echo &amp;quot;found file.txt&amp;quot;;
+fi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a href='http://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions'&gt;ugly&lt;/a&gt;! - but workable&amp;#8230; or so I thought.&lt;/p&gt;
+
+&lt;p&gt;Try this little exercise before you read further: try to get &lt;code&gt;echo &amp;quot;Don&amp;#39;t break on me!&amp;quot;&lt;/code&gt; to produce &lt;code&gt;Don&amp;#39;t break me!&lt;/code&gt; in Bash, that is without errors, extraneous backspaces or lost apostrophes or bangs.&lt;/p&gt;
+
+&lt;p&gt;Losing some hair?&lt;/p&gt;
+
+&lt;p&gt;Ok, first things first, ! has special meaning. It &amp;#8220;starts a history substitution, except when followed by a space, tab, newline, equals or left bracket (when the extglob shell option is enabled, which it is by default in OS X).&amp;#8221;&lt;sup id='fnref:1'&gt;&lt;a href='#fn:1' rel='footnote'&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;So &lt;code&gt;!echo&lt;/code&gt; will search for the last command in history that begins with &lt;code&gt;echo&lt;/code&gt; and substitute the whole line. If there&amp;#8217;s no matching command it&amp;#8217;ll give you the wonderfully cryptic &lt;code&gt;-bash: !echo: event not found&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I can see &lt;a href='http://www.gnu.org/software/bash/manual/bashref.html#History-Interaction'&gt;history expansion&lt;/a&gt; is very powerful, but I&amp;#8217;ve never seen anyone use it and I have serious doubts about it being useful in practice.&lt;/p&gt;
+
+&lt;p&gt;From there these are the decisions Bash made that stymie you in this scenario:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Bang is expanded within double quotes:&lt;/strong&gt; unlike &lt;a href='http://www.gnu.org/software/bash/manual/bashref.html#Brace-Expansion'&gt;braces&lt;/a&gt;, &lt;a href='http://www.gnu.org/software/bash/manual/bashref.html#Tilde-Expansion'&gt;tildes&lt;/a&gt;, or &lt;a href='http://www.gnu.org/software/bash/manual/bashref.html#Filename-Expansion'&gt;file globs&lt;/a&gt;, apparently it&amp;#8217;s essential to be able to pull whole commands out of history and expand them within double quotes without first dropping it into a variable.&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Single quote cannot be escaped/used within single quotes:&lt;/strong&gt; in fact nothing can be escaped within single quotes. &lt;strong&gt;Read: single quotes are crippled.&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Bash even expands !&amp;#8221;&lt;/strong&gt;: the most common place you&amp;#8217;ll hit this whole problem is trying to pass a string that ends in !, even the humble &lt;code&gt;echo &amp;quot;Hello world!&amp;quot;&lt;/code&gt; program will crap itself. It sees !&amp;#8221; as a history search for a command beginning with &amp;#8220;. Why would anyone begin a command with double quote? This is why:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;&lt;span class='nb'&gt;cd&lt;/span&gt; /bin
+&lt;span class='nv'&gt;$ &lt;/span&gt;ln -s &lt;span class='nb'&gt;echo&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;multi-word named echo&amp;quot;&lt;/span&gt;
+&lt;span class='nv'&gt;$ &lt;/span&gt;&lt;span class='s2'&gt;&amp;quot;multi-word named echo&amp;quot;&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;Hello World&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Seem a little absurd? No, I&amp;#8217;ve never seen a command with spaces in the filename either. It is, however, legal Bash. Of course other shells ignore &lt;code&gt;!&amp;quot;&lt;/code&gt; even though they&amp;#8217;re infuriating all those users of multi-word commands out there.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;There&amp;#8217;s a less-broken kind of single quotes&amp;#8230; but they&amp;#8217;re still broken:&lt;/strong&gt; with a &lt;code&gt;$&amp;#39;&amp;lt;msg&amp;gt;&amp;#39;&lt;/code&gt; syntax, ANSI-C quotes do what single quotes should and allow escaping, e.g. &lt;code&gt;echo $&amp;#39;You can\&amp;#39;t do this in single quotes&amp;#39;&lt;/code&gt;. But they&amp;#8217;re broken in the same way double quotes are&amp;#8230;&lt;/p&gt;
+&lt;/li&gt;
+
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Escaping bang is horribly broken in ANSI-C and double quotes:&lt;/strong&gt; I&amp;#8217;ll let the Bash docs speak for themselves:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;[Within double or ANSI-C quotes] If enabled, history expansion will be performed unless an &amp;#8217;!&amp;#8217; appearing in double quotes is escaped using a backslash. The backslash preceding the &amp;#8217;!&amp;#8217; is not removed.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Why isn&amp;#8217;t the backslash removed? Presumably because that would be sane.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id='solutions'&gt;Solutions&lt;/h2&gt;
+
+&lt;p&gt;There are two solutions:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;ANSI-C quotes with character codes:&lt;/strong&gt; you&amp;#8217;d have no variable or command substitution, but if that&amp;#8217;s not a problem it&amp;#8217;d work. Specifically:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt; &lt;span class='nb'&gt;echo&lt;/span&gt; &lt;span class='s1'&gt;$&amp;#39;Don\&amp;#39;t break on me\x21&amp;#39;&lt;/span&gt;
+ 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Verdict&lt;/strong&gt;: 4 characters where 2 should do, little used quote style, and cryptic escape code to boot, but it works. 1. &lt;strong&gt;Take advantage of Bash&amp;#8217;s implicit concatenation:&lt;/strong&gt; when Bash parses a command it splits the line on (unquoted) whitespace and turns each item into an argument. Specifically if two strings appear together with no whitespace inbetween they are implicitly concatenated. This means you can do:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt; &lt;span class='nb'&gt;echo&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;Don&amp;#39;t break on me&amp;quot;&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;!&amp;#39;&lt;/span&gt;
+ 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Verdict&lt;/strong&gt;: 2 extra characters, a little known quirk about Bash concatenation, and you have to juggle two sets of escape code expansion (three if you&amp;#8217;re making a system from another language), but the output is obvious from reading it and it works.&lt;/p&gt;
+
+&lt;h2 id='in_practice'&gt;In practice&lt;/h2&gt;
+
+&lt;p&gt;In practice I came across this while calling grep from Ruby and that introduces an extra layer of escaping.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#8217;s a complex regex, including a negative lookahead&lt;sup id='fnref:2'&gt;&lt;a href='#fn:2' rel='footnote'&gt;2&lt;/a&gt;&lt;/sup&gt;: the syntax is &lt;code&gt;(?!not this pattern)&lt;/code&gt; you&amp;#8217;ll have to double escape everything. It&amp;#8217;ll be expanded once when the string is read from source and again when passed to the system call.&lt;/p&gt;
+
+&lt;p&gt;The obvious choices look like this:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='c1'&gt;# option 1: ANSI-C quotes.&lt;/span&gt;
+&lt;span class='n'&gt;rgx&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='o'&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class='no'&gt;RGX&lt;/span&gt;
+&lt;span class='sh'&gt;(?x)                      # ignore non-escaped whitespace&lt;/span&gt;
+&lt;span class='sh'&gt;&amp;lt;[^&amp;gt;]*                    # we&amp;#39;re looking inside tags&lt;/span&gt;
+&lt;span class='sh'&gt;[^&amp;gt;a-zA-Z]                # last char before the link won&amp;#39;t be a letter or a close tag&lt;/span&gt;
+&lt;span class='sh'&gt;\\K                       # don&amp;#39;t include the above in the match; makes the above a lookbehind, but more efficient&lt;/span&gt;
+&lt;span class='sh'&gt;\\w+://                   # match all chars of protocol, :// is how we know we have a link&lt;/span&gt;
+&lt;span class='sh'&gt;(?\\x21www.w3.org/)       # negative lookahead to exclude irrelevant and slow w3 urls; x21 is chr code for bang&lt;/span&gt;
+&lt;span class='sh'&gt;[^\&amp;quot;\\&amp;#39;\\ &amp;gt;]*            # keep matching until dquo, squo, space or close tag&lt;/span&gt;
+&lt;span class='no'&gt;RGX&lt;/span&gt;
+&lt;span class='sb'&gt;`grep -Pe $&amp;#39;&lt;/span&gt;&lt;span class='si'&gt;#{&lt;/span&gt;&lt;span class='n'&gt;rgx&lt;/span&gt;&lt;span class='si'&gt;}&lt;/span&gt;&lt;span class='sb'&gt;&amp;#39; file`&lt;/span&gt; &lt;span class='c1'&gt;# use Perl style regexes&lt;/span&gt;
+
+&lt;span class='c1'&gt;# option 2: Implicit concat with single quoted !.&lt;/span&gt;
+&lt;span class='n'&gt;rgx&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='o'&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class='no'&gt;RGX&lt;/span&gt;
+&lt;span class='sh'&gt;(?x)                      # ignore non-escaped whitespace&lt;/span&gt;
+&lt;span class='sh'&gt;&amp;lt;[^&amp;gt;]*                    # we&amp;#39;re looking inside tags&lt;/span&gt;
+&lt;span class='sh'&gt;[^&amp;gt;a-zA-Z]                # last char before the link won&amp;#39;t be a letter or a close tag&lt;/span&gt;
+&lt;span class='sh'&gt;\\K                       # don&amp;#39;t include the above in the match; makes the above a lookbehind, but more efficient&lt;/span&gt;
+&lt;span class='sh'&gt;\\w+://                   # match all chars of protocol, :// is how we know we have a link&lt;/span&gt;
+&lt;span class='sh'&gt;(?\&amp;quot;&amp;#39;!&amp;#39;\&amp;quot;www.w3.org/)       # negative lookahead to exclude irrelevant and slow w3 urls&lt;/span&gt;
+&lt;span class='sh'&gt;[^\\\&amp;quot;&amp;#39;\\ &amp;gt;]*            # keep matching until dquo, squo, space or close tag&lt;/span&gt;
+&lt;span class='no'&gt;RGX&lt;/span&gt;
+&lt;span class='sb'&gt;`grep -Pe &amp;quot;&lt;/span&gt;&lt;span class='si'&gt;#{&lt;/span&gt;&lt;span class='n'&gt;rgx&lt;/span&gt;&lt;span class='si'&gt;}&lt;/span&gt;&lt;span class='sb'&gt;&amp;quot; file`&lt;/span&gt; &lt;span class='c1'&gt;# use Perl style regexes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;The double escaping is because Ruby will expand escapes and Bash will do it again. The heredoc just makes explicit the fact that backticks expand escape codes in the same way as double quotes. The contents of substituted variables are not expanded again so there is no need for triple escaping.&lt;/p&gt;
+
+&lt;p&gt;But there is a better way, the percent style single quote format removes the need for double escaping, it looks like this:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='c1'&gt;# option 2: Implicit concat with single quoted !.&lt;/span&gt;
+&lt;span class='n'&gt;rgx&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='sx'&gt;%q{(?x)           # ignore non-escaped whitespace, must start at index 0 of string&lt;/span&gt;
+&lt;span class='sx'&gt;&amp;lt;[^&amp;gt;]*                  # we&amp;#39;re looking inside tags&lt;/span&gt;
+&lt;span class='sx'&gt;[^&amp;gt;a-zA-Z]              # last char before the link won&amp;#39;t be a letter or a close tag&lt;/span&gt;
+&lt;span class='sx'&gt;\K                      # don&amp;#39;t include the above in the match; makes the above a lookbehind, but more efficient&lt;/span&gt;
+&lt;span class='sx'&gt;\w+://                  # match all chars of protocol, :// is how we know we have a link&lt;/span&gt;
+&lt;span class='sx'&gt;(?&amp;quot;&amp;#39;!&amp;#39;&amp;quot;www.w3.org/)     # negative lookahead to exclude irrelevant and slow w3 urls&lt;/span&gt;
+&lt;span class='sx'&gt;[^\&amp;quot;\&amp;#39;\ &amp;gt;]*             # keep matching until dquo, squo, space or close tag&lt;/span&gt;
+&lt;span class='sx'&gt;}&lt;/span&gt;
+&lt;span class='sb'&gt;`grep -Pe &amp;quot;&lt;/span&gt;&lt;span class='si'&gt;#{&lt;/span&gt;&lt;span class='n'&gt;rgx&lt;/span&gt;&lt;span class='si'&gt;}&lt;/span&gt;&lt;span class='sb'&gt;&amp;quot; file`&lt;/span&gt; &lt;span class='c1'&gt;# use Perl style regexes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;which is marginally closer to readable. Of course if you use &lt;code&gt;{}&lt;/code&gt; in the regex you&amp;#8217;ll need to pick a different delimiter (e.g. &lt;code&gt;%q|regex|&lt;/code&gt; or &lt;code&gt;%q^regex^&lt;/code&gt; or something).&lt;/p&gt;
+
+&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;To be honest, my conclusion is to use the following snippet of Ruby (found &lt;a href='http://kennethhunt.com/archives/001331.html'&gt;here&lt;/a&gt;):&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='no'&gt;Dir&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;**/*.php&amp;#39;&lt;/span&gt;&lt;span class='o'&gt;].&lt;/span&gt;&lt;span class='n'&gt;each&lt;/span&gt; &lt;span class='k'&gt;do&lt;/span&gt; &lt;span class='o'&gt;|&lt;/span&gt;&lt;span class='n'&gt;path&lt;/span&gt;&lt;span class='o'&gt;|&lt;/span&gt;
+  &lt;span class='no'&gt;File&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;open&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt; &lt;span class='n'&gt;path&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;do&lt;/span&gt; &lt;span class='o'&gt;|&lt;/span&gt;&lt;span class='n'&gt;f&lt;/span&gt;&lt;span class='o'&gt;|&lt;/span&gt;
+    &lt;span class='n'&gt;f&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;grep&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='sr'&gt; /search_string/&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;do&lt;/span&gt; &lt;span class='o'&gt;|&lt;/span&gt;&lt;span class='n'&gt;line&lt;/span&gt;&lt;span class='o'&gt;|&lt;/span&gt;
+      &lt;span class='nb'&gt;puts&lt;/span&gt; &lt;span class='n'&gt;path&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;:&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;line&lt;/span&gt;
+    &lt;span class='k'&gt;end&lt;/span&gt;
+  &lt;span class='k'&gt;end&lt;/span&gt;
+&lt;span class='k'&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;to replace grep and then (in my case) pass the results into wget. That way I get native Ruby regexes, which require enough escaping as it is without passing them into another language to be escaped again&amp;#8230; and especially not Bash!&lt;/p&gt;
+&lt;div class='footnotes'&gt;&lt;hr /&gt;&lt;ol&gt;&lt;li id='fn:1'&gt;
+&lt;p&gt;loosely quoting the Bash documentation&lt;/p&gt;
+&lt;a href='#fnref:1' rev='footnote'&gt;&amp;#8617;&lt;/a&gt;&lt;/li&gt;&lt;li id='fn:2'&gt;
+&lt;p&gt;a negative look-ahead tells the pattern matcher not to continue matching if the characters ahead match those in the capture group, but it does not capture the characters looked at or advance the matchers&amp;#8217; pointer. So &lt;code&gt;&amp;quot;foobaz&amp;quot;.scan /foo(?!bar)/&lt;/code&gt; returns &lt;code&gt;[&amp;quot;foo&amp;quot;]&lt;/code&gt; but &lt;code&gt;&amp;quot;foobar&amp;quot;.scan /foo(?!bar)/&lt;/code&gt; returns &lt;code&gt;[]&lt;/code&gt;. There are positive look-aheads and negative and positive look-behinds as well. If you&amp;#8217;ve used &lt;code&gt;\b&lt;/code&gt; to match word boundaries you&amp;#8217;ve used a positive lookahead.&lt;/p&gt;
+&lt;a href='#fnref:2' rev='footnote'&gt;&amp;#8617;&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Patching Devise</title>
+   <link href="http://j-ferguson.com/rails/patching-devise/"/>
+   <updated>2011-01-21T00:00:00+11:00</updated>
+   <id>http://j-ferguson.com//rails/patching-devise</id>
+   <content type="html">&lt;p&gt;I submitted my first patch to an open source Ruby project the other day.&lt;/p&gt;
+
+&lt;p&gt;I got interested in the &lt;a href='http://en.wikipedia.org/wiki/HttpOnly#Cross-site_scripting_.E2.80.93_cookie_theft'&gt;HttpOnly&lt;/a&gt; flag on cookies and decided to check up on which cookies set it. After a little more fiddling than should have really been required (see the side note) I was able to establish that the Rails session cookie is &lt;code&gt;HttpOnly&lt;/code&gt; by default (since about 2.2 or 2.3).&lt;/p&gt;
+&lt;div class='sidenote'&gt;
+&lt;h4&gt;Checking the HttpOnly flag in Chrome&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Switch to the tab with the page the cookie is set for.&lt;/li&gt;
+
+&lt;li&gt;Open Tools &amp;gt; Developer &amp;gt; Developer Tools (Alt + Cmd + I)&lt;/li&gt;
+
+&lt;li&gt;Switch to the Storage tab&lt;/li&gt;
+
+&lt;li&gt;Click the item under &amp;#8216;Cookies&amp;#8217; (localhost in my case).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Look at the &amp;#8216;HTTP&amp;#8217; column. There&amp;#8217;ll be a tick if the cookie is &lt;code&gt;HttpOnly&lt;/code&gt;. For example the rails session cookie, called _session_id by default, should have one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;However, I noticed Devise&amp;#8217;s &lt;code&gt;remember_&amp;lt;scope&amp;gt;_token&lt;/code&gt; cookie used for the remember-me feature wasn&amp;#8217;t. Since a remember-me cookie is essentially a super session cookie, and Rails&amp;#8217; session cookie is &lt;code&gt;HttpOnly&lt;/code&gt; by default, I figured Devise&amp;#8217;s default needed to change.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href='https://github.com/JamesFerguson/devise/blob/56e55726c8cdc920f48c97187c7fe8b9d2baddc6/test/integration/rememberable_test.rb' title='See the whole file'&gt;The test&lt;/a&gt; ended up being a single line adding an assertion to an existing test:&lt;/p&gt;
+&lt;script src='https://gist.github.com/805027.js?file=56e55726c8cdc920f48c97187c7fe8b9d2baddc6.diff' type='text/javascript'&gt;&amp;nbsp;&lt;/script&gt;
+&lt;p&gt;It asserts that the server response after submitting a remember-me login will include a &amp;#8216;Set-Cookie&amp;#8217; header that has a line that begins &lt;code&gt;remember_user_token&lt;/code&gt; and ends &lt;code&gt;HttpOnly&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href='https://github.com/JamesFerguson/devise/blob/5f98caca1b192c30f1f3774a365a66f786958cae/lib/devise/hooks/rememberable.rb' title='See the whole file'&gt;The change&lt;/a&gt; itself was one line:&lt;/p&gt;
+&lt;script src='https://gist.github.com/805027.js?file=5f98caca1b192c30f1f3774a365a66f786958cae.diff' type='text/javascript'&gt;&amp;nbsp;&lt;/script&gt;
+&lt;p&gt;It just passes through an additional option.&lt;/p&gt;
+
+&lt;p&gt;I put these changes in a pull-request and sent it along to the Devise guys and Jose Valim very kindly merged it into &lt;code&gt;master&lt;/code&gt;. Amazingly he appears to have found time to do that on Christmas Day (unless GitHub&amp;#8217;s handling of timezones is fooling me).&lt;/p&gt;
+
+&lt;h3 id='httponly'&gt;HttpOnly&lt;/h3&gt;
+
+&lt;p&gt;Modern browsers support an &lt;code&gt;HttpOnly&lt;/code&gt; flag for cookies that tells the browser to lock the cookie against access from Javascript. If Javascript can&amp;#8217;t access your cookie, then attackers can&amp;#8217;t exploit &lt;a href='http://en.wikipedia.org/wiki/Cross-site_scripting'&gt;&lt;abbr title='Cross-site scripting'&gt;XSS&lt;/abbr&gt; vulnerabilities&lt;/a&gt; to harvest your session cookie and impersonate you to the site.&lt;/p&gt;
+
+&lt;p&gt;Such session harvesting is the most flexible way to use an &lt;abbr title='Cross-site scripting'&gt;XSS&lt;/abbr&gt; vulnerability to escalate privileges. But even with an &lt;code&gt;HttpOnly&lt;/code&gt; session cookie a site with an &lt;abbr title='Cross-site scripting'&gt;XSS&lt;/abbr&gt; flaw would still be vulnerable to a &amp;#8217;&lt;a href='http://en.wikipedia.org/wiki/HttpOnly#Cross-site_scripting_.E2.80.93_just_do_it'&gt;just do it&lt;/a&gt;&amp;#8217; attack. That is, rather than embedding a script to harvest the user&amp;#8217;s session and then doing something dastardly on his own machine, the attacker could simply embed a different script that directly does something dastardly and have it run on the user&amp;#8217;s own machine.&lt;/p&gt;
+
+&lt;p&gt;However a &amp;#8216;just do it&amp;#8217; attack is probably a little more constrained because the malicious script has to get by both the site&amp;#8217;s (admittedly already at least partially faulty) input filtering as well as any browser limitations on Javascript. It&amp;#8217;s also a more complex script than session harvesting and has to be run blind.&lt;/p&gt;</content>
+ </entry>
+ 
  
 </feed>

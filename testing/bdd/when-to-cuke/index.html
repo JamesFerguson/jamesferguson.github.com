@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml/">
+
+<head profile="http://gmpg.org/xfn/1">
+  <title>When To Cuke - simply coding</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="Jekyll 0.11.2" /> <!-- leave this for stats please -->
+  <link rel="stylesheet" href="/css/site.css" type="text/css" media="screen" />
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="/rss/atom.xml" />
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-23538759-1']);
+    _gaq.push(['_setDomainName', '.j-ferguson.com']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+
+<body>
+<div id="header"></div>
+<div id="menu">
+  <div id="logo">
+    <div id="h1" title="&ldquo;I would not give a fig for the simplicity this side of complexity, but I would give my life for the simplicity on the other side of complexity.&rdquo;&#10;&#13;Oliver Wendell Holmes"><a href="/">simply coding</a></div>
+    <div id="h2" class="tagline" title="&ldquo;For every problem there is a solution which is simple, clean and wrong.&rdquo;&#10;&#13;H. L. Mencken">Seek simplicity and distrust it.<!-- Alfred North Whitehead --></div>
+  </div>
+  <ul>
+    <li ><a href="/" title="home">home</a></li>
+    <li ><a href="/about.html" title="about">about</a></li>
+  </ul>
+  <div class="header-strip"> </div>
+</div>
+
+<div id="main">
+  <div id="content">
+<h2>when to cuke</h2>
+
+<p>Since getting into BDD and Cucumber I&#8217;ve been getting mixed messages about what should be covered by features and what shouldn&#8217;t.</p>
+
+<p>Firstly, as with TDD, I&#8217;m told that BDD tests are so important they should be written before you touch the code. But then, conflictingly, I&#8217;ve had a number of people suggest that if a feature is mostly provided by a gem or plugin or Rails itself then you needn&#8217;t test it.</p>
+
+<p>Now, granted, for TDD/Rspec I tend to agree - it&#8217;d be futile to go spec-ing every magic method provided by Rails or Devise.</p>
+
+<p>In the case of BDD/Cucumber however, I disagree.</p>
+
+<p>Some brief reasons first:</p>
+
+<ol>
+<li>
+<p>You&#8217;ve made a customer provide a story and told them it&#8217;ll become a test. When you misconfigure the plugin and fail acceptance testing you don&#8217;t just have rejected story, you have a customer wondering why they wrote the story.</p>
+</li>
+
+<li>
+<p>BDD testing makes you think about trivialities like email copy and flash messages which are easy to forget to customise. Some customers may not care but for the rest you&#8217;ll look slapdash for ignoring their stories.</p>
+</li>
+
+<li>
+<p>I&#8217;ve seen it catch bugs. I was implementing Devise and went to the trouble of cuke-ing the Resend Confirmation page and I was surprised to see it fail with a big ugly broken template message. A bad Find/Replace had introduced a wayward space into the path of a partial.</p>
+</li>
+</ol>
+
+<p>But there&#8217;s a broader point here&#8230;</p>
+
+<h3 id='stick_to_the_checklist'>Stick to the Checklist</h3>
+
+<p><a href='http://www.amazon.com/Checklist-Manifesto-How-Things-Right/dp/0805091742' title='The Checklist Manifesto on Amazon'>The Checklist Manifesto</a> is a book by Atul Gawande about how to reduce errors caused by simple oversights, particularly in highly complex professions. I know you&#8217;re thinking this could just be another Seth-Godin-esque mishmash of oversimplified advice backed by nothing but charming anecdotes and overconfident rhetoric, except that Gawande actually backs his suggestions up with the results of applying it in a number of mission-critical hospital settings.</p>
+
+<p>Now I haven&#8217;t actually read the book yet, but the idea is pretty obvious from the title, professionals dealing with significant complexity need checklists to avoid silly mistakes. To quote a reviewer:</p>
+
+<blockquote>
+<p>[Gawande] walks us through a series of examples from medicine showing how the routine tasks of surgeons have now become so incredibly complicated that mistakes &#8230; are virtually inevitable: it&#8217;s just too easy for an otherwise competent doctor to miss a step, or forget to ask a key question&#8230; Gawande then visits with pilots and the people who build skyscrapers and comes back with a solution. Experts need checklists&#8211;literally&#8211;written guides that walk them through the key steps in any complex procedure. In the last section of the book, Gawande shows how his research team has taken this idea, developed a safe surgery checklist, and applied it around the world, with staggering success.</p>
+</blockquote>
+
+<p>Gawande&#8217;s idea isn&#8217;t new, in fact it&#8217;s exactly what BDD is about, though BDD adds automated testing<sup id='fnref:1'><a href='#fn:1' rel='footnote'>1</a></sup>. Notice though, that it&#8217;s not what TDD is about. Specs test &#8220;Does this work as I expect it to?&#8221; but Cucumber features test &#8220;Have I provided all the functionality the customer asked for?&#8221;.</p>
+
+<p>The first question can often be assumed to be true if the function is provided by third-party code. There will often be very little complexity in the inputs and outputs of a single function and good third-party code will have its own tests. However, when testing a feature/story you&#8217;re not just testing multiple functions (which, I admit, may well all reside in third party code and be tested there), you&#8217;re checking off customer expectations against the implementation provided by that third party code.</p>
+
+<p>So, unless the third-party code was custom built for your customer, you can&#8217;t expect it meets their expectations.</p>
+<div class='footnotes'><hr /><ol><li id='fn:1'>
+<p>Gawande apparently argues that checklists need to be applied by someone other than ourselves and for developers it makes sense to have that someone be the computer.</p>
+<a href='#fnref:1' rev='footnote'>&#8617;</a></li></ol></div>
+    <div class="header-strip"> </div>
+  </div>
+
+</div>
+  <div id="footer">
+    <div class='content'>
+        <span><script type="text/javascript"> id=79538; t=2; </script>
+        <script type="text/javascript" src="http://kontactr.com/kpu/kontactr.js">&nbsp;</script>
+        | <a href="/contact.html" title="My Contacts">My Contacts</a>
+        | <a href="/credits.html" title="Site Credits">Credits</a>
+        | <a href="/rss/atom.xml" title="RSS Feed">Subscribe to RSS</a></span>
+    </div>
+    <div class='content'>
+      <strong>simply coding</strong><br />Copyright &copy; 2012 All Rights Reserved
+   </div>
+  </div>
+</body>
+</html>
+
