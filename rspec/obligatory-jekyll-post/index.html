@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml/">
+
+<head profile="http://gmpg.org/xfn/1">
+  <title>The Obligatory Jekyll Post - simply coding</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content="Jekyll 0.11.2" /> <!-- leave this for stats please -->
+  <link rel="stylesheet" href="/css/site.css" type="text/css" media="screen" />
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="/rss/atom.xml" />
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-23538759-1']);
+    _gaq.push(['_setDomainName', '.j-ferguson.com']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+
+<body>
+<div id="header"></div>
+<div id="menu">
+  <div id="logo">
+    <div id="h1" title="&ldquo;I would not give a fig for the simplicity this side of complexity, but I would give my life for the simplicity on the other side of complexity.&rdquo;&#10;&#13;Oliver Wendell Holmes"><a href="/">simply coding</a></div>
+    <div id="h2" class="tagline" title="&ldquo;For every problem there is a solution which is simple, clean and wrong.&rdquo;&#10;&#13;H. L. Mencken">Seek simplicity and distrust it.<!-- Alfred North Whitehead --></div>
+  </div>
+  <ul>
+    <li ><a href="/" title="home">home</a></li>
+    <li ><a href="/about.html" title="about">about</a></li>
+  </ul>
+  <div class="header-strip"> </div>
+</div>
+
+<div id="main">
+  <div id="content">
+<h2>the obligatory jekyll post</h2>
+
+<p>I remember when I was setting up this blog noticing the number of people who&#8217;d just switched to Jekyll and immediately produced a post about some neat trick they&#8217;d found in the process.</p>
+
+<p>Well, I had something up my sleeve for a Jekyll-related post after I started this blog, but I&#8217;m only just posting it now.</p>
+
+<h3 id='specs_for_any_jekyll_site'>Specs for any Jekyll site</h3>
+
+<p>I wrote up some nice generic specs for a Jekyll blog. You can see <a href='https://github.com/JamesFerguson/jamesferguson.github.com/blob/master/spec/site_spec.rb'>the source</a> in this blog&#8217;s repo.</p>
+
+<p>The specs check that your site:</p>
+
+<ol>
+<li><strong>uses valid, resolvable (internal) links:</strong> uses wget to spider the site itself and checks the exit code as well as scanning the output for error messages and expecting there to be none.</li>
+
+<li><strong>uses valid external links:</strong> recursively grep the _site folder for links to anywhere other than the local site (removing duplicate links) then wget the page headers, remove all the expected output (200 OK&#8217;s, irrelevant chatter and known warnings) and expect the result to be blank.</li>
+
+<li><strong>doesn&#8217;t contain known templating errors:</strong> unfortunately the liquid templating engine sometimes spews errors into the generated html rather than outputting them on the comand line. This greps the _site directory for known patterns of template errors and expects the resulting array to be empty.</li>
+
+<li><strong>correctly redirects alternate doamins to itself:</strong> because we here at the j-ferguson global headquarters take our branding extremely seriously, it&#8217;s necessary to check that all the alternate domains we <del>were stupid enough to buy</del> own correctly resolve to j-ferguson.com. We do this by doing a wget spider of the domains with reduced output and expecting to only see 200 OK&#8217;s of j-ferguson.com output.</li>
+
+<li><strong>produces no maruku errors:</strong> in case you&#8217;re not paying attention to the output of <code>jekyll --auto</code> or something this spec generates the site once and checks for any errors output.</li>
+
+<li><strong>contains valid html:</strong> this spec depends on tidy_ffi. It reads all the html under _site/, runs it through tidy_ffi, collects the errors and expects the resulting array to be empty.</li>
+</ol>
+
+<p>Running these just now caught a minor html validation oversight and also alerted me to the fact that the <a href='https://github.com/icefox/git-achievements'>git-achievements</a> plugin I use was producing my <a href='/git-achievements/'>git-achievments</a> page with lots of now defunct links to the old kernel.org git man pages. So of course I dutifully filed <a href='https://github.com/icefox/git-achievements/issues/53'>an issue</a> with the project.</p>
+
+<p>It was putting together some of the chunky regexes in this spec the led to the other <a href='/scripting/escaping-bang-in-bash/'>post on escaping bang in bash</a> you may recognize the regex at the end from the &#8216;uses valid external links&#8217; spec.</p>
+
+<h2 id='pending'>pending</h2>
+
+<p>Finally, you might have also noticed a couple of unfinished specs. Consider them exercises for the reader ;)</p>
+
+<ol>
+<li><strong>offers a valid rss feed:</strong> pass the site&#8217;s atom feed url into <code>http://feedvalidator.org/check.cgi?url=\&lt;feed url\&gt;</code> and parse the output for errors.</li>
+
+<li><strong>uses valid js:</strong> somehow use <a href='https://github.com/psionides/jslint_on_rails'>jslint on rails</a> to syntax check any js in the site.</li>
+</ol>
+    <div class="header-strip"> </div>
+  </div>
+
+</div>
+  <div id="footer">
+    <div class='content'>
+        <span><script type="text/javascript"> id=79538; t=2; </script>
+        <script type="text/javascript" src="http://kontactr.com/kpu/kontactr.js">&nbsp;</script>
+        | <a href="/contact.html" title="My Contacts">My Contacts</a>
+        | <a href="/credits.html" title="Site Credits">Credits</a>
+        | <a href="/rss/atom.xml" title="RSS Feed">Subscribe to RSS</a></span>
+    </div>
+    <div class='content'>
+      <strong>simply coding</strong><br />Copyright &copy; 2012 All Rights Reserved
+   </div>
+  </div>
+</body>
+</html>
+
